@@ -1,0 +1,257 @@
+import discord
+from discord.ext.commands import Bot
+from discord.ext import commands
+import asyncio
+import time
+import random
+from discord import Game
+import datetime
+import sys
+from discord.utils import get
+
+
+Client = discord.client
+client = commands.Bot(command_prefix = '!e')
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('!e'))
+Version = 'V 1.8'
+
+@client.event
+async def on_member_join(member):
+    print('Recognised that a member called ' + member.name + ' joined')
+    emb = (discord.Embed(description="Welcome to our Server! please make sure to read the rules and DM the staff team in case of any issue, hope you have fun and enjoy our community! Also you can always type !eInvite to get a link to invite me to your server or join my support server and use !eHelp to see what I can do!", colour=0xcc0000))
+    emb.set_author(name="Hard_11#3783 ", icon_url='https://cdn.discordapp.com/attachments/463106987379523594/463425895265468431/WP_Noctua-2560x1440_00000.png')
+    emb.set_footer(text='Created by Hard_11#3783 ©')
+    await client.send_message(member, embed=emb)
+    print('Sent message to ' + member.name)
+    if discord.server_id('461496992842121236'):
+       emb = (discord.Embed(description="Hello {}! Welcome to Era-Craft, please read the #rules and follow them. Also do -New in #help if you face any issues, use !ehelp in Bot Commands to see what I can do. Have fun! :heart:".format(member.name), colour=0xcc0000))
+       emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+       emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+       await client.send_message(discord.Object(id="463109992573173760"), embed=emb)
+    
+@client.event
+async def on_ready():
+    print('==================')
+    print("I'm ready!")
+    print('Logged in as')
+    print(client.user.name)
+    print(client.user.id)
+    print("Version: {}".format(Version))
+    print("Current prefix: !e")
+    print('==================')
+    async def change_activities():
+        options = ('EraCraft.meloncu.be', 'Era-Craft.enjin.com', 'Made by Hard_11#3783', 'Use !eHelp for help')
+        timeout = 10 #Delay
+        while True:
+            game = discord.Game(name=random.choice(options))
+            await client.change_presence(game=game)
+            await asyncio.sleep(timeout)
+    bot.loop.create_task(change_activities())
+
+@client.event
+async def on_message(message):
+    if message.content.lower().startswith('!evote'): #vote
+           emb = (discord.Embed(description=' [Vote Site One](https://minecraft-mp.com/server-s205051) \n [Vote Site Two](https://topg.org/server-era-craft-new-id498611) \n [Vote Site Three](https://minecraftservers.org/server/514156)'))
+           emb.set_author(name="(-) Era-Craft (-)", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+           emb.set_footer(text='Created by Hard_11#3783 ©')
+           await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith('!eip'): #server
+        await client.send_message(message.channel,'IP: EraCraft.meloncu.be')
+    elif message.content.lower().startswith('!einvite'): #invite
+        emb = (discord.Embed(description='**[Invite me to your Server](https://discordapp.com/oauth2/authorize?client_id=506494294945955843&scope=bot&permissions=8)**\n**[Join my Support Server](https://discord.gg/wNcEPds)**',color=0xcc00cc))
+        emb.set_footer(text='Made by Hard_11#3783 ©')
+        emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')      
+        await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith("!eshop"):# shop
+       emb = (discord.Embed(description="Hello!\n there is currently a 50% Sale off of everything on [Era-Craft's Shop](https://era-craft.enjin.com/shop) be sure to check it out to support the server. The more you get the more we give! Much Love Era-Crafters, Good luck on your exciting journey. Also be sure to checkout the [shop for server and website hosting](https://discord.gg/eKAQfuC)!", colour=0x00cccc))
+       emb.set_footer(text="Store for Era-Craft ©")
+       emb.set_author(name="Hard_11#3783 ", icon_url='https://cdn.discordapp.com/attachments/463106987379523594/463425895265468431/WP_Noctua-2560x1440_00000.png')
+       await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith('!egoogle'):#google
+       msg = message.content.split()
+       output = ''
+       for word in msg[1:]:
+           output += word
+           output += '+'
+       msg = message.content.split()
+       search = ''
+       for word in msg[1:]:
+           search += word
+           search += ' '
+       emb = (discord.Embed(description="[{}]( https://www.google.com/search?q={} )".format(search, output), colour=0xffff00))
+       emb.set_footer(text="All rights reserved to Google ©")
+       emb.set_author(name="Google", icon_url='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/150px-Google_%22G%22_Logo.svg.png')
+       await client.send_message(message.channel, embed=emb)
+       #for music bot
+    elif message.content.lower().startswith('test'): #summon
+       await client.send_message(message.channel, '{}'.format(client.servers))
+    elif message.content.lower().startswith('!esummon'): #summon
+       author = message.author
+       channel = author.voice_channel
+       await client.join_voice_channel(channel)
+       #for music bot
+    elif message.content.lower().startswith('!emcinfo'): #MC INFO
+       msg = message.content.split()
+       output = ''
+       for word in msg[1:]:
+           output += word
+           output += ''
+       msg = message.content.split()
+       search = ''
+       for word in msg[1:]:
+           search += word
+           search += ''
+       emb = (discord.Embed(title="Minecraft-Statistics", description="[Stats about {}]( https://minecraft-statistic.net/en/player/{}.html )".format(search, output), colour=0x00cc66))
+       await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith('!emyinfo'): #MY INFO   
+          user = message.author
+          embed = discord.Embed(title="{}'s info".format(user.name), description='Here is what I could find:', color=0x00cc66)
+          embed.add_field(name='Name', value='{}'.format(user.name))
+          embed.add_field(name='  Nickname', value='  {}'.format(user.nick), inline=True)
+          embed.add_field(name='Status', value='{}'.format(user.status), inline=True)
+          embed.add_field(name='Highest Role', value='<@&{}>'.format(user.top_role.id), inline=True)
+          embed.add_field(name='Joined at', value='{:%d/%h/%y at %H:%M}'.format(user.joined_at), inline=True)
+          embed.add_field(name='Created at', value='{:%d/%h/%y at %H:%M}'.format(user.created_at), inline=True)
+          embed.add_field(name='Discriminator', value='{}'.format(user.discriminator), inline=True)
+          embed.add_field(name='Playing', value='{}'.format(user.game))
+          embed.set_footer(text="{}#{}'s Info".format(user.name, user.discriminator), icon_url='{}'.format(user.avatar_url))
+          embed.set_thumbnail(url=user.avatar_url)
+          await client.send_message(message.channel, embed=embed)
+    elif message.content.lower().startswith('!ehelp'): #HELP
+       emb = (discord.Embed(description="```css\nCommands used for Era-Bot:```  \n\n***!eHelp***\n **•** Shows this Menu \n\n***!eMyinfo***\n**•** Gives you info about your discord account\n\n***!eLatest***\n**•** Gives you the latest info about __***Era-Bot***__  \n\n***!eYoutube < >***\n **•** Searches a Specific phrase on Youtube \n\n***!ePing***  \n**•** Gives you info about the bot's connection  \n\n***!eServerinfo***\n**•** Gives you info about the server \n\n***!eGoogle < >***\n**•** Searches a specific phrase/word in google -\n\n***!eInvite***\n**•** Allows you to invite this bot to your server and gives you the link to our support server \n\n***!eMCinfo < >*** \n**•** Gives you info about a specific username  \n\n***!eBotinfo*** \n**•** Gives you info about the bot \n\n***!eShop*** \n**•** Gives you the latest news about the shop and the link      \n \n***!eVote*** \n**•** Shows the Voting links       \n\n***!eIP*** \n**•** Gives you the sever IP \n \n```js\nPlease DM @Hard_11#3783 for more Suggestions```", colour=0x3DF270))
+       emb.set_author(name="Hard_11#3783 ", icon_url='https://cdn.discordapp.com/attachments/463106987379523594/463425895265468431/WP_Noctua-2560x1440_00000.png')
+       await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith('!eserverinfo'): #SERVER INFO
+        embed = discord.Embed(title="{}'s info".format(message.server.name), description="Here is what I could find", color=message.author.color, timestamp=datetime.datetime.now())
+        embed.add_field(name="Name", value=message.server.name)
+        embed.add_field(name="Server ID", value="`{}`".format(message.server.id))
+        embed.add_field(name="Members", value="{}".format(len(message.server.members)))
+        embed.add_field(name="Roles", value='{}'.format(len(message.server.roles)))
+        embed.add_field(name="Owner", value='{}'.format(message.server.owner))
+        embed.add_field(name="Created at", value='{}'.format(message.server.created_at))
+        embed.set_thumbnail(url=message.server.icon_url)
+        embed.set_footer(text="Requested by {}#{}".format(message.author.name, message.author.discriminator), icon_url='{}'.format(message.author.avatar_url))
+        await client.send_message(message.channel, embed=embed)
+    elif message.content.lower().startswith('!ebotinfo'): #BOT INFO
+          embed = discord.Embed(description="Info about Era-Bot", color=0xcc0000)
+          embed.set_thumbnail(url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+          embed.add_field(name='***• BOT NAME:***', value='- *Era-Bot*', inline=True)
+          embed.add_field(name=' ***• BOT VERSION:***', value='- *{}*'.format(Version), inline=True)
+          embed.add_field(name=' ***• MADE BY:***', value='- *Hard_11#3783*', inline=True)
+          embed.add_field(name='***• SERVERS:***', value='- *{}*'.format(len(client.servers)), inline=True)
+          embed.add_field(name='***• STATUS:***', value='- __Under Development__', inline=True)
+          embed.add_field(name='**• Invite me to your server**', value='[Invite Link](https://discordapp.com/oauth2/authorize?client_id=506494294945955843&scope=bot&permissions=8)', inline=True)
+          embed.set_footer(text='Created by Hard_11#3783 ©')    
+          embed.set_author(name="(-) Era-Bot (-)", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+          await client.send_message(message.channel, embed=embed)
+    elif message.content.lower().startswith('!eping'): #PING
+        channel = message.channel
+        t1 = time.perf_counter()
+        await client.send_typing(channel)
+        t2 = time.perf_counter()
+        await client.send_message(message.channel, "`{} ms`".format(round((t2-t1)*1000)))
+    elif message.content.lower().startswith('!eplatform'): #platform
+        await client.send_message(message.channel, 'Running on ' + sys.platform)
+    elif message.content.lower().startswith('!eyoutube'): #youtube
+       msg = message.content.split()
+       output = ''
+       for word in msg[1:]:
+           output += word
+           output += '+'
+       msg = message.content.split()
+       search = ''
+       for word in msg[1:]:
+           search += word
+           search += ' '
+       emb = (discord.Embed(description="[{}]( https://www.youtube.com/results?search_query={} )".format(search, output), colour=0xcc0000))
+       emb.set_footer(text="All rights reserved to Youtube ©")
+       emb.set_author(name="Youtube", icon_url='https://i.pinimg.com/originals/5e/3d/c9/5e3dc98403c844d58c225160772a530e.jpg')
+       await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith('!elayout'): #invite layout
+       emb = (discord.Embed(description="   (-) Era-Craft (-)\n\n:one:  **Be sure to join  https://discord.gg/Hmnvffn for a great faction server!** :octopus: :fire: \n\n:two: **Custom TNT, Breakable Obsidian, Genbuckets and much more!** :newspaper: :sparkles: \n\n:three: **helpful staff with Invite rewards! FTOP get a 250$ gift Card for our store and  5 NFA alts! **:heart: :credit_card: \n\n:four: **amazing custom builds, crates, and kits** :classical_building: \n\n:five: **Huge Giveaways** :confetti_ball: :confetti_ball:\n\n:six: **11 different bots for music, games and memes!** :musical_note: \n\n:seven: **Amazing events for rewards!** :video_game: :fire:\n\nAnd a lot more! :smiley: :star: \n\nLinks:   :link: \n - Forum: https://era-craft.enjin.com\n - Invite link:  https://discord.gg/Hmnvffn\n - Server IP: eracraft.meloncu.be\n - Store: https://era-craft.enjin.com/shop  -   /store (ingame) or /buy\n - Voting: 1- https://minecraft-mp.com/server-s205051 \n                   2- https://topg.org/server-era-craft-new-id498611 \n                   3- https://minecraftservers.org/server/514156", colour=0xcc00cc))
+       emb.set_author(name="Era-Craft", icon_url='https://cdn.discordapp.com/attachments/463106987379523594/463425895265468431/WP_Noctua-2560x1440_00000.png')
+       await client.send_message(message.channel, embed=emb)
+    elif message.content.lower().startswith('!eleave'):
+       if message.author.id == '298364471087464448':
+            server = message.server
+            await client.leave_server(server)
+    elif message.content.lower().startswith('!yannounce'): #yellow announce
+       if message.author.id == '298364471087464448': 
+           msg = message.content.split()
+           search = ''
+           for word in msg[1:]:
+               search += word
+               search += ' '
+       emb = (discord.Embed(description="\n**{}**\n".format(search), colour=0xffff00))
+       emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+       emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+       trashmsg = await client.send_message(discord.Object(id="461499582279319552"), "@everyone")
+       await client.delete_message(trashmsg)
+       await client.send_message(discord.Object(id="461499582279319552"), embed=emb)
+    elif message.content.lower().startswith('!rannounce'): #red announce
+       if message.author.id == '298364471087464448':
+           msg = message.content.split()
+           search = ''
+           for word in msg[1:]:
+               search += word
+               search += ' '
+       emb = (discord.Embed(description="\n**{}**\n".format(search), colour=0xcc0000))
+       emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+       emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+       trashmsg = await client.send_message(discord.Object(id="461499582279319552"), "@everyone")
+       await client.delete_message(trashmsg)
+       await client.send_message(discord.Object(id="461499582279319552"), embed=emb)
+    elif message.content.lower().startswith('!gannounce'): #green announce
+       if message.author.id == '298364471087464448':
+           msg = message.content.split()
+           search = ''
+           for word in msg[1:]:
+               search += word
+               search += ' '
+       emb = (discord.Embed(description="\n**{}**\n".format(search), colour=0x3DF270))
+       emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+       emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+       trashmsg = await client.send_message(discord.Object(id="461499582279319552"), "@everyone")
+       await client.delete_message(trashmsg)
+       await client.send_message(discord.Object(id="461499582279319552"), embed=emb)
+    elif message.content.lower().startswith('!pannounce'): #purple announce
+       if message.author.id == '298364471087464448':
+           msg = message.content.split()
+           search = ''
+           for word in msg[1:]:
+               search += word
+               search += ' '
+       emb = (discord.Embed(description="\n**{}**\n".format(search), colour=0xcc00cc))
+       emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+       emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+       trashmsg = await client.send_message(discord.Object(id="461499582279319552"), "@everyone")
+       await client.delete_message(trashmsg)
+       await client.send_message(discord.Object(id="461499582279319552"), embed=emb)
+    elif message.content.lower().startswith('!echange'): #change log
+       if message.author.id == '298364471087464448':    
+           msg = message.content.split()
+           search = ''
+           for word in msg[1:]:
+               search += word
+               search += ' '
+       emb = (discord.Embed(description="\n**{}**\n".format(search), colour=0xffff00))
+       emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+       emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+       await client.send_message(discord.Object(id="491389760976191489"), embed=emb)
+    elif message.content.lower().startswith('!ereport'): #report command
+        member = message.author
+        emb = (discord.Embed(description= "Report forum", colour=0xcc0000))
+        emb.add_field(name='Who are you reporting?', value="Who")
+        emb.add_field(name='Why are you reporting them?', value="Why")
+        emb.add_field(name='Do you have any proof?', value='images/videos')
+        await client.send_message(  member, embed=emb)
+    elif message.content.lower().startswith('!elatest'): #latest
+      one = 'Added a new !ePing command'
+      two = 'Added Some fields to !eserverinfo'
+      three = 'Added !eLatest (this)'
+      emb = (discord.Embed(description= "\n1- **{}**\n\n2- **{}**\n\n3- **{}**".format(one, two, three), colour=0x3DF270))
+      emb.set_footer(text="Era-Bot - Created by Hard_11#3783 ©")
+      emb.set_author(name="Era-Bot", icon_url='https://cdn.discordapp.com/attachments/461524865422458880/506786380932710400/ERA_CRAFT.png')
+      await client.send_message(message.channel, embed=emb)
+
+client.run('NTA2NDk0Mjk0OTQ1OTU1ODQz.DrjDsA.2ahX1XMVLbxtcjxYX5mMRhTOw')
