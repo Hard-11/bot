@@ -32,4 +32,5 @@ async def on_message(message):
       await client.delete_messages(tra, tra2)
       await client.add_roles(mem, *513044601129664529)
 
-client.run('NTEzMDUxMzg0NDg1MTE3OTU2.DtCX8A.sU7zKtyLLFmgMLWZDFX0MDswlOE')
+client.run('NTEzMDUxMzg0NDg1MTE3OTU2.DtCX8A.sU7zKtyLLFmgMLWZ
+wlOE')
